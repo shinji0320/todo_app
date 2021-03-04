@@ -9,4 +9,3 @@ function TodoList() {
 }
 
 export default TodoList
-TodoList

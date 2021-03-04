@@ -9,4 +9,3 @@ function EditTodo() {
 }
 
 export default EditTodo
-EditTodo

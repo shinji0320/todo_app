@@ -6,7 +6,7 @@ import TodoList from './TodoList'
 import EditTodo from './EditTodo'
 import './App.css'
 
-const Nabvar =styled.nav`
+const Nabvar = styled.nav`
   background: #dbfffe;
   min-height: 8vh;
   display: flex;
@@ -20,7 +20,7 @@ const Logo = styled.div`
   letter-spacing: 3px;
 `
 
-const navItems = styled.ul`
+const NavItems = styled.ul`
   display: flex;
   width: 400px;
   max-width: 40%;
@@ -45,9 +45,25 @@ const Wrapper = styled.div`
 
 function App() {
   return (
-    <div>
-      Add
-    </div>
+    <>
+      <Nabvar>
+        <Logo>
+          TODO
+        </Logo>
+        <NavItems>
+          <NavItem>
+            <Link to="/todos">
+              Todos
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/todos/new">
+              Add New Todo
+            </Link>
+          </NavItem>
+        </NavItems>
+      </Nabvar>
+    </>
   )
 }
 

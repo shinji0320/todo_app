@@ -48,7 +48,7 @@ const Row = styled.div`
   font-size: 25px;
 `
 
-const CheckBox =styled.div`
+const CheckedBox =styled.div`
   display: flex;
   align-items: center;
   margin: 0.7px;
@@ -76,7 +76,7 @@ function TodoList() {
   useEffect(() => {
     axios.get('/api/v1/todos.json')
     .then(resp => {
-      console.log(resp.data);
+      console.log(resp.data)
       setTodos(resp.data);
     })
     .catch(e => {
@@ -97,7 +97,7 @@ function TodoList() {
     }
   }
 
-  const updateCompleted = (index, val) => {
+  const updateIsCompleted = (index, val) => {
     var data = {
       id: val.id,
       name : val.name,
@@ -117,7 +117,7 @@ function TodoList() {
     <SearchAndButton>
       <SearchForm
         type="text"
-        placeholder="Search todos..."
+        placeholder="Search todo..."
         onChange={event => {
           setSearchName(event.target.value)
         }}
@@ -126,6 +126,7 @@ function TodoList() {
         Remove All
       </RemoveAllButton>
     </SearchAndButton>
+
     <div>
       {todos.filter((val) => {
         if(searchName === "") {
@@ -136,9 +137,23 @@ function TodoList() {
       }).map((val, key) => {
         return (
           <Row key={key}>
+            {val.is_completed ? (
+              <CheckedBox>
+                <ImCheckboxChecked onClick={() => updateIsCompleted(key, val) } />
+              </CheckedBox>
+              ) : (
+              <UncheckedBox>
+                <ImCheckboxUnchecked onClick={() => updateIsCompleted(key, val) } />
+              </UncheckedBox>
+            )}
             <TodoName is_completed={val.is_completed}>
               {val.name}
             </TodoName>
+            <Link to={"/todos/" + val.id + "/edit"}>
+              <EditButton>
+                <AiFillEdit />
+              </EditButton>
+            </Link>
           </Row>
         )
       })}

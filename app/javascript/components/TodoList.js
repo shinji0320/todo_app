@@ -1,4 +1,4 @@
-import React, { userState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { link } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
@@ -48,12 +48,42 @@ const Row = styled.div`
   font-size: 25px;
 `
 
-// const CheckBox =styled.div`
-//   display: flex;
-//   ali
-// `
+const CheckBox =styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0.7px;
+  color: green;
+  cursor: pointer;
+`
+
+const UncheckedBox =styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0.7px;
+  cursor: pointer;
+`
+
+const EditButton = styled.span`
+  display: flex;
+  align-items: center;
+  margin: 0.7px;
+`
 
 function TodoList() {
+  const [todos, setTodos] = useState([])
+  const [searchName, setSearchName] = useState('')
+
+  useEffect(() => {
+    axios.get('/api/v1/todos.json')
+    .then(resp => {
+      console.log(resp.data);
+      setTodos(resp.data);
+    })
+    .catch(e => {
+      console.log(e);
+    })
+  }, [])
+
   return (
     <div>
       TodoList

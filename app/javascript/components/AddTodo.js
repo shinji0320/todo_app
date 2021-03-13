@@ -3,12 +3,19 @@ import axios from 'axios'
 import styled from 'styled-components'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify'
-import { Fisend } from 'react-icons/fi'
+import { FiSend } from 'react-icons/fi'
 
 const InputAndButton = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top 20px;
+`
+
+const InputName = styled.div`
+  font-size: 20px;
+  width: 100px;
+  height: 40px;
+  padding 2px 7px;
 `
 
 const Button = styled.button`
@@ -25,7 +32,7 @@ const Button = styled.button`
     opacity: 0.5;
     cursor: default;
   `}
-  `
+`
 
 const Icon = styled.span`
   display: flex;
@@ -64,7 +71,7 @@ function AddTodo(props) {
     .then(resp => {
       setTodo({
         id: resp.data.id,
-        name :resp.data.name,
+        name: resp.data.name,
         is_completed: resp.data.is_completed
       })
       notify()
@@ -75,9 +82,26 @@ function AddTodo(props) {
     })
   }
   return (
-    <div>
-      AddTodo
-    </div>
+    <>
+      <h1>New Todo</h1>
+      <InputAndButton>
+        <InputName
+          type="text"
+          required
+          value={todo.name}
+          name="name"
+          onChange={handleInputChange}
+        />
+        <Button
+          onClick={saveTodo}
+          disabled={(!todo.name || /^\s*$/.test(todo.name))}
+        >
+          <Icon>
+            <FiSend />
+          </Icon>
+        </Button>
+      </InputAndButton>
+    </>
   )
 }
 

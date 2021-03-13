@@ -47,26 +47,25 @@ function AddTodo(props) {
     id: null,
     name: "",
     is_completed: false
-  };
+  }
 
   const [todo, setTodo] = useState(initialTodoState);
-
-  const notify = () => {
-    toast.success('Todo successfully created!', {
-      position: 'bottom-center',
-      hideProgressBar: true
-    });
-  }
 
   const handleInputChange = event => {
     const { name, value } = event.target;
     setTodo({ ...todo, [name]: value });
-  };
+  }
+  const notify = () => {
+    toast.success('Todo successfully created!', {
+      position: 'bottom-center',
+      hideProgressBar: true
+    })
+  }
 
   const saveTodo = () => {
     var data = {
-      name: todo.name,
-    };
+      name: todo.name
+    }
 
     axios.post('/api/v1/todos', data)
     .then(resp => {
@@ -74,14 +73,14 @@ function AddTodo(props) {
         id: resp.data.id,
         name: resp.data.name,
         is_completed: resp.data.is_completed
-      });
-      notify();
-      props.history.push('/totos');
+      })
+      notify()
+      props.history.push('/todos')
     })
     .catch(e => {
       console.log(e)
     })
-  };
+  }
 
   return (
     <>

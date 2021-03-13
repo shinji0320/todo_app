@@ -12,7 +12,7 @@ const SearchAndButton = styled.div`
 `
 
 const SearchForm = styled.input`
-  font-sie: 20px;
+  font-size: 20px;
   width: 100%;
   height: 40px;
   margin: 10px 0;
@@ -51,7 +51,7 @@ const Row = styled.div`
 const CheckedBox =styled.div`
   display: flex;
   align-items: center;
-  margin: 0.7px;
+  margin: 0 7px;
   color: green;
   cursor: pointer;
 `
@@ -59,14 +59,14 @@ const CheckedBox =styled.div`
 const UncheckedBox =styled.div`
   display: flex;
   align-items: center;
-  margin: 0.7px;
+  margin: 0 7px;
   cursor: pointer;
 `
 
 const EditButton = styled.span`
   display: flex;
   align-items: center;
-  margin: 0.7px;
+  margin: 0 7px;
 `
 
 function TodoList() {

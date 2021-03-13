@@ -25,7 +25,7 @@ const Button = styled.button`
     opacity: 0.5;
     cursor: default;
   `}
-`
+  `
 
 const Icon = styled.span`
   display: flex;
@@ -33,7 +33,9 @@ const Icon = styled.span`
   margin: 0 7px;
 `
 
-function AddTodo() {
+toast.configure()
+
+function AddTodo(props) {
   const initialTodoState = {
     id: null,
     name: "",
@@ -47,6 +49,12 @@ function AddTodo() {
     setTodo({ ...todo, [name]: value })
   }
 
+  const notify = () => {
+    toast.success('Todo successfully created!', {
+      position: 'bottom-center',
+      hideProgressBar: true
+    })
+  }
   const saveTodo = () => {
     var data = {
       name: todo.name
@@ -59,6 +67,11 @@ function AddTodo() {
         name :resp.data.name,
         is_completed: resp.data.is_completed
       })
+      notify()
+      props.history.push('/totos')
+    })
+    .catch(e => {
+      console.log(e)
     })
   }
   return (

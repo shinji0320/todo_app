@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { FiSend } from 'react-icons/fi'
 
 const InputAndButton = styled.div`
@@ -11,9 +11,9 @@ const InputAndButton = styled.div`
   margin-top 20px;
 `
 
-const InputName = styled.div`
+const InputName = styled.input`
   font-size: 20px;
-  width: 100px;
+  width: 100%;
   height: 40px;
   padding 2px 7px;
 `
@@ -47,25 +47,26 @@ function AddTodo(props) {
     id: null,
     name: "",
     is_completed: false
-  }
+  };
 
-  const [todo, setTodo] = useState(initialTodoState)
-
-  const handleInputChange = event => {
-    const { name, value } =event.target;
-    setTodo({ ...todo, [name]: value })
-  }
+  const [todo, setTodo] = useState(initialTodoState);
 
   const notify = () => {
     toast.success('Todo successfully created!', {
       position: 'bottom-center',
       hideProgressBar: true
-    })
+    });
   }
+
+  const handleInputChange = event => {
+    const { name, value } = event.target;
+    setTodo({ ...todo, [name]: value });
+  };
+
   const saveTodo = () => {
     var data = {
-      name: todo.name
-    }
+      name: todo.name,
+    };
 
     axios.post('/api/v1/todos', data)
     .then(resp => {
@@ -73,14 +74,15 @@ function AddTodo(props) {
         id: resp.data.id,
         name: resp.data.name,
         is_completed: resp.data.is_completed
-      })
-      notify()
-      props.history.push('/totos')
+      });
+      notify();
+      props.history.push('/totos');
     })
     .catch(e => {
       console.log(e)
     })
-  }
+  };
+
   return (
     <>
       <h1>New Todo</h1>

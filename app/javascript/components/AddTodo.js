@@ -74,6 +74,7 @@ function AddTodo(props) {
         name: resp.data.name,
         is_completed: resp.data.is_completed
       })
+      // リダイレクト先
       notify()
       props.history.push('/todos')
     })

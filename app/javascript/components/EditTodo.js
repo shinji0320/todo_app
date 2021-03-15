@@ -102,7 +102,7 @@ function EditTodo(props) {
   }
 
   const updateTodo = () => {
-    axios.patch(`/api/v1/todos/${currentTodo.id}, currentTodo`)
+    axios.patch(`/api/v1/todos/${currentTodo.id}`, currentTodo)
     .then(resp => {
       notify()
       props.history.push('/todos')
@@ -115,8 +115,8 @@ function EditTodo(props) {
   const deleteTodo = () => {
     const sure = window.confirm('Are you sure?')
     if (sure) {
-      axios.delete(`/api/vi/todos/${currentTodo.id}`)
-      ,then(resp => {
+      axios.delete(`/api/v1/todos/${currentTodo.id}`)
+      .then(resp => {
         props.history.push('/todos')
       })
       .catch(e => {
@@ -125,9 +125,39 @@ function EditTodo(props) {
     }
   }
   return (
-    <div>
-      EditTodo
-    </div>
+    <>
+      <h1>Editing Todo</h1>
+      <div>
+        <label htmlFor="name">Current Name</label>
+        <InputName
+          type="text"
+          name="name"
+          value={currentTodo.name}
+          onChange={handleInputChange}
+        />
+        <div>
+          <span>Current Status</span><br/>
+          <CurrentStatus>
+            {currentTodo.is_completed ? "Completed" : "Uncompleted"}
+          </CurrentStatus>
+        </div>
+        {currentTodo.is_completed ? (
+          <IsCompletedButton onClick={() => updateIsCompleted(currentTodo)}>
+            UnCompleted
+          </IsCompletedButton>
+        ) : (
+          <IsCompletedButton onClick={() => updateIsCompleted(currentTodo)}>
+            Completed
+          </IsCompletedButton>
+        )}
+        <EditButton onClick={updateTodo}>
+          Update
+        </EditButton>
+        <DeleteButton onClick={deleteTodo}>
+          Delete
+        </DeleteButton>
+      </div>
+    </>
   )
 }
 
